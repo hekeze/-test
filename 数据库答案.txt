@@ -1,0 +1,19 @@
+    有一个[学生课程]数据库，数据库中包括三个表：  学生表Student由学号(Sno)、姓名(Sname)、性别(Ssex)、年龄(Sage)、所在系(Sdept)五个属性组成，记为： Student(Sno,Sname,Ssex,Sage,Sdept) ，Sno 为关键字。  课程表Course由课程号(Cno)、课程名(Cname)、先修课号(Cpno)、学分(Ccredit)四个属性组成，记为：Course(Cno,Cname,Cpno,Ccredit) Cno为关键字。   成绩表SG由学号(Sno)、课程号(Cno)、成绩(Grade)三个属性组成，记为： SG(Sno,Cno,Grade) (SNO, CNO)为关键字。  用SQL语言实现下列功能：  
+1．建立学生表Student，其中学号属性不能为空，并且其值是唯一的。 
+2．向Student表增加“入学时间(Scome)”列，其数据类型为日期型。
+3．查询选修了3号课程的学生的学号及其成绩，查询结果按分数的降序排列。 
+4．查询学习1号课程的学生最高分数、平均成绩。 
+5．查询与“李洋”在同一个系学习的学生。 
+6．将计算机系全体学生的成绩置零。 
+7．删除学号为05019的学生记录。  
+8．删除计算机系所有学生的成绩记录。
+
+
+1．CREATETABLE Student   (Sno CHAR(5) NOT NULL UNIQUE, Sname CHAR(20), Ssex CHAR(2), 		Sage INT,  Sdept CHAR(15)) 
+2．ALTER TABLE Student ADD Scome DATETIME 
+3．SELECT Sno, Grade FROM SG  WHERE Cno='3'   ORDER BY Grade DESC  
+4．SELECT MAX(Grade), AVG(Grade) FROM SC   WHERE Cno='1'  
+5．SELECT Sno, Sname, Sdept FROM Student  WHERE Sdept IN   (SELECT Sdept FROM Student    WHERE Sname='李洋') 
+6．UPDATE SG  SET Grade=0  WHERE Sno in  ( SELECT Sno FROM Student  WHERE Sdept = '计	算机系') 
+7．DELETE FROM Student WHERE Sno='05019'  
+8．DELETE FROM SG  WHERE Sno in  ( SELECT Sno FROM Student  WHERE Sdept = '计算机系')
